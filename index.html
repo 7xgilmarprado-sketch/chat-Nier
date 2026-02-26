@@ -522,7 +522,7 @@
         /**
          * CONFIGURAÇÃO DO WEBHOOK
          */
-        const DEFAULT_WEBHOOK = 'https://bango.app.n8n.cloud/webhook-test/chat';
+        const DEFAULT_WEBHOOK = 'https://bango.app.n8n.cloud/webhook/chat';
         let WEBHOOK_URL = localStorage.getItem('cyberpunk_webhook_url') || DEFAULT_WEBHOOK;
 
         const chatContainer = document.getElementById('chat-container');
@@ -586,8 +586,15 @@
 
             if (imageUrl) {
                 contentHtml += `
-                    <div style="margin-top: 12px; overflow: hidden; border: 1px solid rgba(0, 255, 136, 0.2); border-radius: 2px;">
+                    <div style="margin-top: 12px; overflow: hidden; border: 1px solid rgba(0, 255, 136, 0.2); border-radius: 2px; position: relative;" class="img-container">
                         <img src="${imageUrl}" alt="Tactical Data" style="max-width: 100%; height: auto; display: block;" referrerpolicy="no-referrer">
+                        <a href="${imageUrl}" download="nier-image-${Date.now()}.png" 
+                           style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); border: 1px solid #00ff88; padding: 6px 12px; color: #00ff88; text-decoration: none; font-size: 10px; font-weight: bold; text-transform: uppercase; display: flex; align-items: center; gap: 6px; transition: all 0.3s;"
+                           onmouseover="this.style.background='#00ff88'; this.style.color='#000';"
+                           onmouseout="this.style.background='rgba(0,0,0,0.8)'; this.style.color='#00ff88';">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                           Baixar
+                        </a>
                     </div>
                 `;
             }

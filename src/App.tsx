@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Settings, X, Save, RefreshCw } from 'lucide-react';
+import { Settings, X, Save, RefreshCw, Download } from 'lucide-react';
 
 const DEFAULT_WEBHOOK = 'https://bango.app.n8n.cloud/webhook/chat';
 
@@ -279,13 +279,22 @@ export default function App() {
                 </span>
                 <div className="whitespace-pre-wrap">{msg.text}</div>
                 {msg.image && (
-                  <div className="mt-3 overflow-hidden rounded-sm border border-[#00ff88]/20">
+                  <div className="mt-3 overflow-hidden rounded-sm border border-[#00ff88]/20 group/img relative">
                     <img 
                       src={msg.image} 
                       alt="Dados Táticos" 
                       className="max-w-full h-auto block"
                       referrerPolicy="no-referrer"
                     />
+                    <a 
+                      href={msg.image} 
+                      download={`nier-image-${Date.now()}.png`}
+                      className="absolute bottom-2 right-2 bg-black/80 border border-[#00ff88] p-2 text-[#00ff88] hover:bg-[#00ff88] hover:text-black transition-all opacity-0 group-hover/img:opacity-100 flex items-center gap-2 text-[10px] font-bold uppercase"
+                      title="Baixar Imagem"
+                    >
+                      <Download size={14} />
+                      <span>Baixar</span>
+                    </a>
                   </div>
                 )}
             </div>
