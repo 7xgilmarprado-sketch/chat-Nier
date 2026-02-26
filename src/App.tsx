@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Settings, X, Save, RefreshCw } from 'lucide-react';
 
-const DEFAULT_WEBHOOK = 'https://bango.app.n8n.cloud/webhook-test/chat';
+const DEFAULT_WEBHOOK = 'https://bango.app.n8n.cloud/webhook/chat';
 
 export default function App() {
   // Estado para a URL do Webhook com persistência no localStorage
@@ -16,7 +16,7 @@ export default function App() {
   });
 
   const [messages, setMessages] = useState<{ text?: string; image?: string; isUser: boolean }[]>([
-    { text: 'SISTEMA ONLINE. AGUARDANDO ENTRADA...', isUser: false }
+    { text: 'SOLTE A IMAGINAÇÃO, CRIE O QUE QUISER...', isUser: false }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -186,15 +186,15 @@ export default function App() {
       {/* Header */}
       <header className="p-6 flex justify-between items-center border-b border-[#00ff88]/30 backdrop-blur-md bg-black/40 z-20">
         <div className="flex flex-col">
-          <span className="text-[10px] text-[#008844] tracking-[0.3em] font-bold uppercase mb-1 opacity-70">Tactical Data Link</span>
-          <h1 className="text-xl font-display font-bold tracking-[6px] uppercase neon-glow glitch-text">NIER // TEXT_CHAT</h1>
+          <span className="text-[10px] text-[#008844] tracking-[0.3em] font-bold uppercase mb-1 opacity-70">Link de Dados Táticos</span>
+          <h1 className="text-xl font-display font-bold tracking-[6px] uppercase neon-glow glitch-text">NIER // IMAGEM_IA</h1>
         </div>
         <button 
           onClick={() => { setShowSettings(true); setTempUrl(webhookUrl); }}
           className="group flex items-center gap-2 border border-[#00ff88]/50 px-4 py-2 text-[10px] font-bold uppercase hover:bg-[#00ff88] hover:text-black transition-all cursor-pointer shadow-[0_0_10px_rgba(0,255,136,0.1)] hover:shadow-[0_0_20px_rgba(0,255,136,0.4)]"
         >
           <Settings size={14} className="group-hover:rotate-90 transition-transform duration-500" /> 
-          <span className="hidden sm:inline">Settings</span>
+          <span className="hidden sm:inline">Configurações</span>
         </button>
       </header>
 
@@ -206,8 +206,8 @@ export default function App() {
             
             <div className="flex justify-between items-center mb-8">
               <div className="flex flex-col">
-                <span className="text-[9px] text-[#008844] tracking-widest uppercase mb-1">System Configuration</span>
-                <h2 className="text-2xl font-display font-bold tracking-widest uppercase neon-glow">WEBHOOK_LINK</h2>
+                <span className="text-[9px] text-[#008844] tracking-widest uppercase mb-1">Configuração do Sistema</span>
+                <h2 className="text-2xl font-display font-bold tracking-widest uppercase neon-glow">LINK_WEBHOOK</h2>
               </div>
               <button onClick={() => setShowSettings(false)} className="text-[#00ff88] hover:text-white hover:scale-110 transition-all cursor-pointer p-2">
                 <X size={28} />
@@ -216,7 +216,7 @@ export default function App() {
             
             <form onSubmit={saveSettings} className="space-y-8">
                 <div className="relative">
-                    <label className="block text-[10px] uppercase mb-3 text-[#008844] tracking-widest font-bold">Target Endpoint URL</label>
+                    <label className="block text-[10px] uppercase mb-3 text-[#008844] tracking-widest font-bold">URL do Endpoint Alvo</label>
                     <div className="relative">
                         <input 
                             type="text" 
@@ -234,13 +234,13 @@ export default function App() {
                   type="submit"
                   className="flex-1 flex items-center justify-center gap-3 border-2 border-[#00ff88] py-4 text-xs font-bold uppercase hover:bg-[#00ff88] hover:text-black transition-all cursor-pointer shadow-[0_0_15px_rgba(0,255,136,0.1)] active:scale-95"
                 >
-                  <Save size={18} /> Confirm Changes
+                  <Save size={18} /> Confirmar Alterações
                 </button>
                 <button 
                   type="button"
                   onClick={resetSettings}
                   className="px-5 border-2 border-[#008844] py-4 text-xs font-bold uppercase hover:border-[#00ff88] hover:text-[#00ff88] transition-all cursor-pointer active:scale-95"
-                  title="Restore Default"
+                  title="Restaurar Padrão"
                 >
                   <RefreshCw size={18} />
                 </button>
@@ -249,7 +249,7 @@ export default function App() {
             
             <div className="mt-8 pt-6 border-t border-[#00ff88]/10">
                 <p className="text-[9px] text-[#008844] uppercase tracking-widest leading-relaxed">
-                    Warning: Changing the endpoint may disrupt the tactical link. Data is stored in local volatile memory.
+                    Aviso: Alterar o endpoint pode interromper o link tático. Os dados são armazenados na memória local volátil.
                 </p>
             </div>
           </div>
@@ -275,14 +275,14 @@ export default function App() {
             
             <div className="flex flex-col">
                 <span className={`text-[8px] uppercase tracking-widest mb-1 opacity-40 font-bold ${msg.isUser ? 'text-right' : 'text-left'}`}>
-                    {msg.isUser ? 'User_Identity' : 'Nier_System'} // {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                    {msg.isUser ? 'Identidade_Usuario' : 'Sistema_Nier'} // {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
                 </span>
                 <div className="whitespace-pre-wrap">{msg.text}</div>
                 {msg.image && (
                   <div className="mt-3 overflow-hidden rounded-sm border border-[#00ff88]/20">
                     <img 
                       src={msg.image} 
-                      alt="Tactical Data" 
+                      alt="Dados Táticos" 
                       className="max-w-full h-auto block"
                       referrerPolicy="no-referrer"
                     />
@@ -296,7 +296,7 @@ export default function App() {
           <div className="self-start flex items-center gap-3 ml-2">
             <div className="w-1 h-4 bg-[#00ff88] animate-pulse"></div>
             <div className="text-[10px] text-[#00ff88] tracking-[0.2em] font-bold uppercase typing-dots">
-              Processing Request
+              Processando Requisição
             </div>
           </div>
         )}
@@ -310,7 +310,7 @@ export default function App() {
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder="ENTER COMMAND_"
+                    placeholder="DIGITE O COMANDO DE CRIAÇÃO_"
                     className="w-full bg-transparent border-b-2 border-[#008844]/50 p-4 px-0 text-[#00ff88] outline-none focus:border-[#00ff88] transition-all font-mono placeholder:text-[#008844]/40"
                     autoComplete="off"
                     autoFocus
@@ -322,13 +322,13 @@ export default function App() {
                 className="group relative border-2 border-[#00ff88] text-[#00ff88] px-8 font-display font-bold uppercase cursor-pointer overflow-hidden transition-all hover:bg-[#00ff88] hover:text-black active:scale-95"
             >
                 <span className="relative z-10 flex items-center gap-2">
-                    Send <span className="text-[10px] opacity-50 group-hover:opacity-100">↵</span>
+                    Gerar <span className="text-[10px] opacity-50 group-hover:opacity-100">↵</span>
                 </span>
             </button>
         </form>
         <div className="max-w-5xl mx-auto mt-4 flex justify-between items-center opacity-30 text-[8px] uppercase tracking-[0.3em] font-bold">
-            <span>Security: Encrypted</span>
-            <span>Link Status: Stable</span>
+            <span>Segurança: Criptografado</span>
+            <span>Status do Link: Estável</span>
             <span>NIER_OS_V2.4</span>
         </div>
       </div>

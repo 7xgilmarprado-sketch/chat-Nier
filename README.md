@@ -1,11 +1,12 @@
-# NIER // TEXT_CHAT
+# NIER // IMAGEM_IA
 
-Um chat minimalista e imersivo com estética Cyberpunk/NieR, integrado com webhooks do n8n.
+Uma interface imersiva e minimalista com estética Cyberpunk/NieR para geração de imagens via IA, integrada com webhooks do n8n.
 
 ## 🚀 Funcionalidades
-- **Interface Imersiva:** Efeitos de scanlines, glitch e tipografia futurista.
+- **Interface Imersiva:** Efeitos de scanlines, glitch e tipografia futurista inspirada em NieR:Automata.
+- **Geração de Imagens:** Otimizado para exibir respostas visuais (imagens binárias ou URLs).
 - **Configuração Dinâmica:** Altere a URL do webhook diretamente na interface (salvo no localStorage).
-- **Suporte Multimídia:** Recebe e exibe mensagens de texto e imagens (incluindo binários).
+- **Totalmente em Português:** Interface localizada para melhor experiência do usuário.
 - **Responsivo:** Design adaptado para desktop e dispositivos móveis.
 
 ## 🛠️ Tecnologias

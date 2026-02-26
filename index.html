@@ -460,10 +460,10 @@
 
     <header>
         <div class="header-title-group">
-            <span class="header-sub">Tactical Data Link</span>
-            <h1>NIER // TEXT_CHAT</h1>
+            <span class="header-sub">Link de Dados Táticos</span>
+            <h1>NIER // IMAGEM_IA</h1>
         </div>
-        <button id="open-settings">Settings</button>
+        <button id="open-settings">Configurações</button>
     </header>
 
     <!-- Settings Modal -->
@@ -471,21 +471,21 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-title-group">
-                    <span class="modal-sub">System Configuration</span>
-                    <h2>WEBHOOK_LINK</h2>
+                    <span class="modal-sub">Configuração do Sistema</span>
+                    <h2>LINK_WEBHOOK</h2>
                 </div>
                 <button id="close-settings">&times;</button>
             </div>
             <div class="form-group">
-                <label>Target Endpoint URL</label>
+                <label>URL do Endpoint Alvo</label>
                 <input type="text" id="webhook-input" placeholder="https://...">
             </div>
             <div class="modal-actions">
-                <button id="save-settings">Confirm Changes</button>
-                <button id="reset-settings" title="Restore Default">&circlearrowright;</button>
+                <button id="save-settings">Confirmar Alterações</button>
+                <button id="reset-settings" title="Restaurar Padrão">&circlearrowright;</button>
             </div>
             <p style="margin-top: 20px; font-size: 9px; color: var(--neon-dim); text-transform: uppercase; letter-spacing: 0.1em; line-height: 1.4;">
-                Warning: Changing the endpoint may disrupt the tactical link. Data is stored in local volatile memory.
+                Aviso: Alterar o endpoint pode interromper o link tático. Os dados são armazenados na memória local volátil.
             </p>
         </div>
     </div>
@@ -493,27 +493,27 @@
     <div id="chat-container">
         <!-- Mensagens aparecerão aqui -->
         <div class="message bot-message">
-            <div class="message-meta">Nier_System // Init</div>
-            SISTEMA ONLINE. AGUARDANDO ENTRADA...
+            <div class="message-meta">Sistema_Nier // Init</div>
+            SOLTE A IMAGINAÇÃO, CRIE O QUE QUISER...
         </div>
     </div>
 
     <div id="typing-indicator">
         <div class="typing-box"></div>
-        Processing Request
+        Processando Requisição
     </div>
 
     <div class="input-wrapper">
         <form class="input-area" id="chat-form">
             <div class="input-group">
-                <input type="text" id="user-input" placeholder="ENTER COMMAND_" autocomplete="off" autofocus>
+                <input type="text" id="user-input" placeholder="DIGITE O COMANDO DE CRIAÇÃO_" autocomplete="off" autofocus>
                 <div class="input-focus-line"></div>
             </div>
-            <button type="submit" class="send-btn">Send</button>
+            <button type="submit" class="send-btn">Gerar</button>
         </form>
         <div class="footer-meta">
-            <span>Security: Encrypted</span>
-            <span>Link Status: Stable</span>
+            <span>Segurança: Criptografado</span>
+            <span>Status do Link: Estável</span>
             <span>NIER_OS_V2.4</span>
         </div>
     </div>
@@ -577,7 +577,7 @@
             messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
             
             const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-            const sender = isUser ? 'User_Identity' : 'Nier_System';
+            const sender = isUser ? 'Identidade_Usuario' : 'Sistema_Nier';
             
             let contentHtml = `
                 <div class="message-meta">${sender} // ${time}</div>
@@ -642,7 +642,7 @@
                     const imageUrl = URL.createObjectURL(blob);
                     
                     typingIndicator.style.display = 'none';
-                    addMessage('IMAGEM RECEBIDA // TACTICAL_DATA', false, imageUrl);
+                    addMessage('IMAGEM RECEBIDA // DADOS_TATICOS', false, imageUrl);
                 } else {
                     // Se a resposta for JSON
                     const data = await response.json();
