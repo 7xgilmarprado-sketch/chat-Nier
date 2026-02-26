@@ -1,0 +1,5 @@
+{
+  "name": "Cyberpunk Chat Minimalist",
+  "description": "A sleek, cyberpunk-themed chat interface connecting to an n8n webhook.",
+  "requestFramePermissions": []
+}
