@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Settings, X, Save, RefreshCw, Download } from 'lucide-react';
+import { Settings, X, Save, RefreshCw, Download, Image as ImageIcon, Video } from 'lucide-react';
 
 const DEFAULT_WEBHOOK = 'https://bango.app.n8n.cloud/webhook/chat';
 
@@ -15,10 +15,11 @@ export default function App() {
     return saved || DEFAULT_WEBHOOK;
   });
 
-  const [messages, setMessages] = useState<{ text?: string; image?: string; isUser: boolean }[]>([
+  const [messages, setMessages] = useState<{ text?: string; image?: string; video?: string; isUser: boolean }[]>([
     { text: 'SOLTE A IMAGINAÇÃO, CRIE O QUE QUISER...', isUser: false }
   ]);
   const [input, setInput] = useState('');
+  const [mode, setMode] = useState<'image' | 'video'>('image');
   const [isTyping, setIsTyping] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [tempUrl, setTempUrl] = useState(webhookUrl);
@@ -59,9 +60,9 @@ export default function App() {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
-          'Accept': 'application/json, image/*'
+          'Accept': 'application/json, image/*, video/*'
         },
-        body: JSON.stringify({ message: trimmedInput })
+        body: JSON.stringify({ message: trimmedInput, mode: mode })
       });
 
       if (!response.ok) {
@@ -77,8 +78,18 @@ export default function App() {
         const imageUrl = URL.createObjectURL(blob);
         setIsTyping(false);
         setMessages(prev => [...prev, { 
-          text: 'IMAGEM RECEBIDA // TACTICAL_DATA', 
+          text: 'IMAGEM RECEBIDA // DADOS_TATICOS', 
           image: imageUrl,
+          isUser: false 
+        }]);
+      } else if (contentType && contentType.includes('video/')) {
+        // Se a resposta for um vídeo binário
+        const blob = await response.blob();
+        const videoUrl = URL.createObjectURL(blob);
+        setIsTyping(false);
+        setMessages(prev => [...prev, { 
+          text: 'VÍDEO RECEBIDO // DADOS_TATICOS', 
+          video: videoUrl,
           isUser: false 
         }]);
       } else {
@@ -86,10 +97,11 @@ export default function App() {
         const data = await response.json();
         setIsTyping(false);
 
-        if (data && (data.reply || data.image)) {
+        if (data && (data.reply || data.image || data.video)) {
           setMessages(prev => [...prev, { 
             text: data.reply, 
             image: data.image,
+            video: data.video,
             isUser: false 
           }]);
         } else {
@@ -278,6 +290,24 @@ export default function App() {
                     {msg.isUser ? 'Identidade_Usuario' : 'Sistema_Nier'} // {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
                 </span>
                 <div className="whitespace-pre-wrap">{msg.text}</div>
+                {msg.video && (
+                  <div className="mt-3 overflow-hidden rounded-sm border border-[#00ff88]/20 group/vid relative">
+                    <video 
+                      src={msg.video} 
+                      controls
+                      className="max-w-full h-auto block"
+                    />
+                    <a 
+                      href={msg.video} 
+                      download={`nier-video-${Date.now()}.mp4`}
+                      className="absolute top-2 right-2 bg-black/80 border border-[#00ff88] p-2 text-[#00ff88] hover:bg-[#00ff88] hover:text-black transition-all opacity-0 group-hover/vid:opacity-100 flex items-center gap-2 text-[10px] font-bold uppercase"
+                      title="Baixar Vídeo"
+                    >
+                      <Download size={14} />
+                      <span>Baixar</span>
+                    </a>
+                  </div>
+                )}
                 {msg.image && (
                   <div className="mt-3 overflow-hidden rounded-sm border border-[#00ff88]/20 group/img relative">
                     <img 
@@ -313,6 +343,24 @@ export default function App() {
 
       {/* Input Area */}
       <div className="p-6 sm:p-10 border-t border-[#00ff88]/20 bg-black/60 backdrop-blur-md z-20">
+        <div className="max-w-5xl mx-auto mb-6 flex justify-center">
+            <div className="inline-flex bg-black/40 border border-[#00ff88]/20 p-1 rounded-sm">
+                <button 
+                    onClick={() => setMode('image')}
+                    className={`flex items-center gap-2 px-6 py-2 text-[10px] font-bold uppercase transition-all ${mode === 'image' ? 'bg-[#00ff88] text-black shadow-[0_0_15px_rgba(0,255,136,0.4)]' : 'text-[#008844] hover:text-[#00ff88]'}`}
+                >
+                    <ImageIcon size={14} />
+                    Imagem
+                </button>
+                <button 
+                    onClick={() => setMode('video')}
+                    className={`flex items-center gap-2 px-6 py-2 text-[10px] font-bold uppercase transition-all ${mode === 'video' ? 'bg-[#00ff88] text-black shadow-[0_0_15px_rgba(0,255,136,0.4)]' : 'text-[#008844] hover:text-[#00ff88]'}`}
+                >
+                    <Video size={14} />
+                    Vídeo
+                </button>
+            </div>
+        </div>
         <form onSubmit={handleSendMessage} className="max-w-5xl mx-auto flex gap-4">
             <div className="flex-1 relative group">
                 <input
